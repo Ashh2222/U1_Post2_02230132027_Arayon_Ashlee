@@ -2,14 +2,16 @@
 
 ## Diagrama UML
 
-###========================
+```
+========================
         MODEL
-###========================
-#### abstract class Product
+========================
+
+abstract class Product
 --------------------------------
- name : String
- basePrice : double
- category : String
+# name : String
+# basePrice : double
+# category : String
 --------------------------------
 + Product(name : String,
           basePrice : double,
@@ -21,7 +23,7 @@
 + getCategory() : String
 
 
-#### Electronics extends Product
+Electronics extends Product
 --------------------------------
 - warrantyMonths : int
 --------------------------------
@@ -32,7 +34,7 @@
 + getDescription() : String
 
 
-#### Clothing extends Product
+Clothing extends Product
 --------------------------------
 - size : String
 --------------------------------
@@ -43,7 +45,7 @@
 + getDescription() : String
 
 
-#### Food extends Product
+Food extends Product
 --------------------------------
 - foodType : String
 --------------------------------
@@ -54,48 +56,46 @@
 + getDescription() : String
 
 
-
-### ========================
+========================
         FACTORY
-### ========================
+========================
 
-#### ProductFactory
+ProductFactory
 --------------------------------
 + createProduct(type : String,
                 name : String,
                 price : double) : Product
 
 
-
-### ========================
+========================
         STRATEGY
-### ========================
+========================
 
-#### interface PricingStrategy
+interface PricingStrategy
 --------------------------------
 + calculateFinalPrice(originalPrice : double) : double
 + getDescription() : String
 
 
-#### RegularPricing implements PricingStrategy
+RegularPricing implements PricingStrategy
 --------------------------------
 + calculateFinalPrice(price : double) : double
 + getDescription() : String
 
 
-#### MemberPricing implements PricingStrategy
+MemberPricing implements PricingStrategy
 --------------------------------
 + calculateFinalPrice(price : double) : double
 + getDescription() : String
 
 
-#### BlackFridayPricing implements PricingStrategy
+BlackFridayPricing implements PricingStrategy
 --------------------------------
 + calculateFinalPrice(price : double) : double
 + getDescription() : String
 
 
-#### BulkPricing implements PricingStrategy
+BulkPricing implements PricingStrategy
 --------------------------------
 - quantity : int
 --------------------------------
@@ -104,19 +104,18 @@
 + getDescription() : String
 
 
-
-### ========================
+========================
         OBSERVER
-### ========================
+========================
 
-#### interface OrderObserver
+interface OrderObserver
 --------------------------------
 + update(orderId : String,
          oldStatus : String,
          newStatus : String) : void
 
 
-#### interface OrderSubject
+interface OrderSubject
 --------------------------------
 + subscribe(observer : OrderObserver) : void
 + unsubscribe(observer : OrderObserver) : void
@@ -125,33 +124,32 @@
                   newStatus : String) : void
 
 
-#### EmailNotifier implements OrderObserver
+EmailNotifier implements OrderObserver
 --------------------------------
 + update(orderId : String,
          oldStatus : String,
          newStatus : String) : void
 
 
-#### SMSNotifier implements OrderObserver
+SMSNotifier implements OrderObserver
 --------------------------------
 + update(orderId : String,
          oldStatus : String,
          newStatus : String) : void
 
 
-#### LogNotifier implements OrderObserver
+LogNotifier implements OrderObserver
 --------------------------------
 + update(orderId : String,
          oldStatus : String,
          newStatus : String) : void
 
 
-
-### ========================
+========================
         SERVICE
-### ========================
+========================
 
-#### OrderService implements OrderSubject
+OrderService implements OrderSubject
 --------------------------------
 - observers : List<OrderObserver>
 - orderId : String
@@ -176,22 +174,19 @@
 + printSummary(total : double) : void
 
 
+========================
+        MAIN
+========================
 
-### ========================
-       Main
-### ========================
-
-#### Main
+Main
 --------------------------------
 + main(args : String[]) : void
 - changeStatusWithPause(order : OrderService,
                         newStatus : String) : void
 - printFinalSummary(order : OrderService,
                     total : double) : void
-                    
-                    
-
-## Justiificacion de patrones
+```
+## Justificacion de patrones
 
 ### 1️. Patrón Observer
 
@@ -207,7 +202,7 @@ Se utiliza Factory Method para centralizar la creación de productos (Electronic
 Se implementa Strategy para manejar diferentes estrategias de descuento como RegularPricing, MemberPricing (10% descuento), BlackFridayPricing (30% descuento) y BulkPricing (descuento por cantidad), evitando múltiples condicionales dentro del cálculo de precios cumpliendo asi el Open/Closed.
 
 
-### SOLID
+### 4.SOLID
 
 Se aplicaron los principios SOLID gracias a los patrones cumpliendo con cada sigla.
 
@@ -221,4 +216,3 @@ Se aplicaron los principios SOLID gracias a los patrones cumpliendo con cada sig
 3. Compilar el proyecto.
 
 4. Ejecutar la clase Main.java.
-.
